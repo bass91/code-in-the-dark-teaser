@@ -1,0 +1,28 @@
+/* the props */
+@import "open-props/postcss/style";
+
+/* optional imports that use the props */
+@import "open-props/postcss/normalize";
+@import "open-props/postcss/buttons";
+
+@font-face {
+    font-family: "PressStart";
+    src: url("PressStart2P-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --color-bg: #000;
+    --color-text: #fff;
+    --font-mono: "PressStart", monospace;
+}
+
+body {
+    font-family: var(--font-monospace-code);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    overflow: hidden;
+}
