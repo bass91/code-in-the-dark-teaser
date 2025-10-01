@@ -15,9 +15,21 @@ const props = defineProps<{
 
 const { width, height } = useWindowSize();
 const { x, y } = useMouse();
-console.log("x:", x.value, "y:", y.value);
 const transformX = computed(() => x.value - width.value / 2);
 const transformY = computed(() => y.value - height.value / 2);
+
+watch([x, y], () => {
+    console.log(
+        "x:",
+        x.value,
+        "y:",
+        y.value,
+        "height:",
+        height.value,
+        "width:",
+        width.value,
+    );
+});
 </script>
 
 <style scoped>
@@ -29,20 +41,28 @@ const transformY = computed(() => y.value - height.value / 2);
     /*left: -50%;
     top: -50%;*/
 
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.98) 15%);
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.95) 15%);
     display: flex;
     justify-content: center;
     align-items: center;
     pointer-events: none;
     place-self: center;
-    translate: var(--x) calc(var(--y) - 80px);
+    translate: var(--x) calc(var(--y) - 40px);
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
 }
 
 .overlay.lit {
     background-image: radial-gradient(
         circle,
-        rgba(0, 0, 0, 0.6) 5%,
-        rgba(0, 0, 0, 0.98) 10%
+        rgba(0, 0, 0, 0.4) 2%,
+        rgba(0, 0, 0, 0.98) 5%
     );
 }
 </style>

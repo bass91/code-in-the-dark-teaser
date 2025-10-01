@@ -4,6 +4,7 @@
 
 <style scoped>
 .table {
+    position: fixed;
     height: 120vh;
     width: 110rem;
     background-color: #f5f5f5;
@@ -20,5 +21,9 @@
     transform: rotateX(50deg) translateZ(-50vw);
     /* Ensure overlay covers it */
     z-index: 1;
+
+    @media (max-width: 768px) {
+        transform: rotateX(50deg) translateZ(-120vw);
+    }
 }
 </style>

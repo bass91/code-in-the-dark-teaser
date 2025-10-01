@@ -37,3 +37,23 @@ body {
     background-size: 400px;
     overflow: hidden;
 }
+
+#__nuxt {
+    overflow: hidden;
+}
+
+* {
+    cursor:
+        url("/assets/images/flashlight.png") 8 16,
+        auto;
+}
+
+.button {
+    color: limegreen;
+    border: 1px solid limegreen;
+    display: block;
+    padding: 0.25rem;
+    font-size: var(--font-size-base);
+    margin-top: 0.5rem;
+    cursor: pointer;
+}

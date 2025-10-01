@@ -7,7 +7,7 @@
                     <span class="cursor"></span>
                 </div>
             </div>
-            <button @click="handleClick"></button>
+            <button tabindex="-1" @click="handleClick"></button>
         </div>
     </div>
 </template>
@@ -17,8 +17,8 @@ import { useSound } from "@vueuse/sound";
 
 const monitorOn = ref(false);
 const text = ref("");
-const linkText = "Secure your spot";
-const textToWrite = `CODE IN THE DARK -> ${linkText}`;
+const linkText = "Secure your spot ->";
+const textToWrite = `CODE IN THE DARK @ Mpya Digital 12/11`;
 
 const { play: playKeyboardSound, stop: stopKeyboardSound } = useSound(
     "../assets/audio/keyboard.mp3",
@@ -38,11 +38,8 @@ watch([monitorOn, isStaticSoundPlaying], () => {
     }
 });
 
-const replaceTextWithLink = () => {
-    text.value = textToWrite.replace(
-        linkText,
-        `<a href="https://mpyadigital.confetti.events/codeinthedark-2025-malmo">${linkText}</a>`,
-    );
+const addLink = () => {
+    text.value += `<a class="button" href="https://mpyadigital.confetti.events/codeinthedark-2025-malmo">${linkText}</a>`;
 };
 
 let cursorPosition = 0;
@@ -50,7 +47,7 @@ let timeoutId: number | null = null;
 const writeText = () => {
     if (cursorPosition >= textToWrite.length) {
         stopKeyboardSound();
-        replaceTextWithLink();
+        addLink();
         return;
     }
 
@@ -80,10 +77,13 @@ const handleClick = () => {
     --button-color: transparent;
 
     height: 60vh;
-    max-width: 90vw;
     aspect-ratio: 1;
     display: grid;
     position: relative;
+
+    @media screen and (max-width: 768px) {
+        height: 55vh;
+    }
 
     &::after {
         content: "";
@@ -98,46 +98,34 @@ const handleClick = () => {
 .monitor {
     button {
         position: absolute;
-        bottom: 4.15rem;
-        right: 4.5rem;
-        width: 1.5rem;
+        bottom: 3.15rem;
+        right: 3.4rem;
+        width: 3rem;
         aspect-ratio: 1;
-        border-radius: 50%;
+        border-radius: 25%;
+        box-shadow: none;
         border: none;
         cursor: pointer;
-        box-shadow:
-            inset 10px 10px 20px rgba(0, 0, 0, 0.5),
-            0 4px 0 rgba(0, 0, 0, 0.3);
         display: grid;
         justify-content: center;
         padding: 0;
         grid-template-areas: "stack";
-        background: #ba9e76;
-        transform: rotateX(50deg);
+        background: transparent;
+        padding: 1.5rem;
+        z-index: 2;
 
-        &::before,
-        &::after {
-            content: "";
-            width: 4px;
-            height: 30%;
-            background: var(--button-color);
-            align-self: center;
-            grid-area: stack;
-            z-index: 999;
-        }
-
-        &::after {
-            filter: blur(4px);
+        @media screen and (max-width: 768px) {
+            bottom: 4.15rem;
+            right: 4.5rem;
         }
     }
 }
 
 .screen {
     position: absolute;
-    inset: 15% 22% 48%;
-
+    inset: 15% 24% 49%;
     background-color: #3b463d;
-    border-radius: 0.5rem;
+    border-radius: 9% / 13%;
     display: grid;
     overflow: clip;
     box-shadow: inset 0 0 20px rgba(0, 0, 0, 1);
@@ -169,12 +157,11 @@ const handleClick = () => {
 
     .content {
         place-self: start;
-        padding: 1em;
-        font-size: var(--font-size-4);
+        padding: 0.75rem;
+        font-size: var(--font-size-3);
         font-family: var(--font-monospace-slab-serif);
         font-weight: 700;
         color: limegreen;
-        max-width: 80%;
         text-align: left;
         opacity: 0;
         transition: opacity 1s ease-in-out;
