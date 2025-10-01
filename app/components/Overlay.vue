@@ -24,17 +24,17 @@ const transformY = computed(() => y.value - height.value / 2);
 .overlay {
     position: absolute;
 
-    width: 200vw;
-    height: 200vh;
-    left: -50%;
-    top: -50%;
+    width: 300vw;
+    height: 300vh;
+    /*left: -50%;
+    top: -50%;*/
 
     background-image: radial-gradient(circle, rgba(0, 0, 0, 0.98) 15%);
     display: flex;
     justify-content: center;
     align-items: center;
-
     pointer-events: none;
+    place-self: center;
     translate: var(--x) calc(var(--y) - 80px);
 }
 

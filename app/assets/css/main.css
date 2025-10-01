@@ -24,5 +24,16 @@ body {
     line-height: var(--line-height-base);
     color: var(--color-text);
     background-color: var(--color-bg);
+    background-image:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.75),
+            rgba(0, 0, 0, 0.25),
+            rgba(0, 0, 0, 0.75)
+        ),
+        url("/assets/images/brick.png");
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 400px;
     overflow: hidden;
 }

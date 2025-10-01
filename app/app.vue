@@ -1,14 +1,17 @@
 <template>
-    <main @click="handleClick">
+    <main ref="containerRef" @click="handleClick">
+        <Table />
         <Computer />
+        <Overlay :lit="lit" />
     </main>
-    <Overlay :lit="lit" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const lit = ref(true);
-const handleClick = (event) => {
-    if (event.target.nodeName !== "BUTTON") {
+
+const handleClick = (event: MouseEvent) => {
+    const target = event.target as HTMLElement | null;
+    if (target && target.nodeName !== "BUTTON") {
         lit.value = !lit.value;
     }
 };
@@ -23,5 +26,14 @@ main {
     height: 100svh;
     place-content: center;
     cursor: url("assets/images/flashlight.png"), auto;
+    grid-template-areas: "stack";
+    place-content: center;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+
+    & > * {
+        grid-area: stack;
+    }
 }
 </style>
