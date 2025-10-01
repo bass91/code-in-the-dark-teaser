@@ -17,7 +17,7 @@ import { useSound } from "@vueuse/sound";
 
 const monitorOn = ref(false);
 const text = ref("");
-const linkText = "Secure your spot ->";
+const linkText = "Secure your spot >";
 const textToWrite = `CODE IN THE DARK @ Mpya Digital 12/11`;
 
 const { play: playKeyboardSound, stop: stopKeyboardSound } = useSound(
@@ -169,6 +169,10 @@ const handleClick = () => {
         text-shadow:
             0 0 5px hsl(120, 61%, 50%, 0.75),
             0 0 10px hsl(120, 61%, 50%, 0.3);
+
+        @media screen and (max-width: 768px) {
+            font-size: var(--font-size-1);
+        }
 
         .cursor {
             display: inline-block;

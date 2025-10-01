@@ -53,7 +53,7 @@ watch([x, y], () => {
         content: "";
         position: absolute;
         width: 100vw;
-        height: 100vh;
+        height: 100svh;
         background-color: rgba(0, 0, 0, 0.5);
     }
 }
