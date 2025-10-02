@@ -125,7 +125,7 @@ const handleClick = () => {
         content: "";
         position: absolute;
         inset: 0;
-        background-image: url("../assets/images/c64.png");
+        background-image: url("../assets/images/c64.webp");
         background-size: cover;
         filter: brightness(0.7);
     }

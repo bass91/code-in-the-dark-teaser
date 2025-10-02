@@ -31,7 +31,7 @@ body {
             rgba(0, 0, 0, 0.25),
             rgba(0, 0, 0, 0.75)
         ),
-        url("/assets/images/brick.png");
+        url("/assets/images/brick.webp");
     background-position: center;
     background-repeat: repeat;
     background-size: 400px;
