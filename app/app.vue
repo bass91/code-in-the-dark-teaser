@@ -1,13 +1,15 @@
 <template>
     <main ref="containerRef" @click="handleClick">
         <Table />
-        <Computer />
+        <Computer @buttonClicked="buttonClicked = true" />
         <Overlay :lit="lit" />
     </main>
+    <p class="instructions" :data-hide="buttonClicked">Find the button</p>
 </template>
 
 <script setup lang="ts">
 const lit = ref(true);
+const buttonClicked = ref(false);
 
 const handleClick = (event: MouseEvent) => {
     // const target = event.target as HTMLElement | null;
@@ -33,6 +35,36 @@ main {
 
     & > * {
         grid-area: stack;
+    }
+}
+
+.instructions {
+    position: fixed;
+    left: 50%;
+    translate: -50%;
+    margin-inline: auto;
+    color: white;
+    font-size: var(--font-size-1);
+    font-family: var(--font-system-ui);
+    letter-spacing: 0.25em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    top: -5rem;
+    animation: slide-down 2s linear forwards;
+    transition: opacity 1s linear;
+
+    &[data-hide="true"] {
+        opacity: 0 !important;
+    }
+}
+
+@keyframes slide-down {
+    from {
+        top: -2rem;
+        opacity: 0;
+    }
+    to {
+        top: 2rem;
+        opacity: 1;
     }
 }
 </style>

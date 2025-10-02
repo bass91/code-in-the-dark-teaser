@@ -43,36 +43,31 @@ body {
 }
 
 * {
-    cursor:
-        url("/assets/images/flashlight.png") 8 16,
-        auto;
+    cursor: none;
 }
 
 .button {
     color: limegreen;
-    border: 1px solid limegreen;
+    border: none;
     display: block;
     padding: 0.25rem;
     font-size: var(--font-size-base);
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     cursor: pointer;
-    box-shadow:
-        0 0 5px hsl(120, 61%, 50%, 0.75),
-        0 0 10px hsl(120, 61%, 50%, 0.3),
-        inset 0 0 5px hsl(120, 61%, 50%, 0.75),
-        inset 0 0 10px hsl(120, 61%, 50%, 0.3);
-}
+    text-align: center;
 
-html {
-    overflow: hidden;
-    height: 100%;
-    position: fixed;
-}
+    &:hover {
+        text-decoration: none;
+    }
 
-body {
-    overflow: auto;
-    height: 100%;
-    position: relative;
+    &[data-show="true"] {
+        border: 1px solid limegreen;
+        box-shadow:
+            0 0 5px hsl(120, 61%, 50%, 0.75),
+            0 0 10px hsl(120, 61%, 50%, 0.3),
+            inset 0 0 5px hsl(120, 61%, 50%, 0.75),
+            inset 0 0 10px hsl(120, 61%, 50%, 0.3);
+    }
 }
 
 * {

@@ -1,10 +1,20 @@
 <template>
     <div class="computer">
-        <div class="monitor" :data-on="monitorOn">
+        <div class="monitor" :data-on="monitorOn" :data-shutdown="isShutdown">
             <div class="screen">
                 <div class="content">
-                    <span v-html="text"></span>
-                    <span class="cursor"></span>
+                    <span v-html="text"></span
+                    ><span v-show="text !== textToWrite" class="cursor" />
+                    <a
+                        class="button"
+                        :data-show="showLink"
+                        href="https://mpyadigital.confetti.events/codeinthedark-2025-malmo"
+                        >{{ linkText
+                        }}<span
+                            v-show="text === textToWrite && !showLink"
+                            class="cursor"
+                    /></a>
+                    <span v-show="showLink" class="cursor" />
                 </div>
             </div>
             <button tabindex="-1" @click="handleClick"></button>
@@ -15,10 +25,15 @@
 <script setup lang="ts">
 import { useSound } from "@vueuse/sound";
 
+const emit = defineEmits<{
+    (e: "buttonClicked"): void;
+}>();
+
 const monitorOn = ref(false);
-const text = ref("");
-const linkText = "Secure your spot >";
 const textToWrite = `CODE IN THE DARK @ Mpya Digital 12/11`;
+const linkTextToWrite = "Secure your spot >";
+const text = ref("");
+const linkText = ref("");
 
 const { play: playKeyboardSound, stop: stopKeyboardSound } = useSound(
     "../assets/audio/keyboard.mp3",
@@ -28,10 +43,14 @@ const {
     play: playStaticSound,
     stop: stopStaticSound,
     isPlaying: isStaticSoundPlaying,
-} = useSound("../assets/audio/static.mp3");
+} = useSound("../assets/audio/static.mp3", {
+    volume: 0.2,
+});
+
+const { play: playGlitchSound } = useSound("../assets/audio/glitch.mp3");
 
 watch([monitorOn, isStaticSoundPlaying], () => {
-    if (monitorOn.value && !isStaticSoundPlaying.value) {
+    if (monitorOn.value && !isStaticSoundPlaying.value && !isShutdown.value) {
         playStaticSound();
     } else if (!monitorOn.value) {
         stopStaticSound();
@@ -42,33 +61,54 @@ const addLink = () => {
     text.value += `<a class="button" href="https://mpyadigital.confetti.events/codeinthedark-2025-malmo">${linkText}</a>`;
 };
 
-let cursorPosition = 0;
-let timeoutId: number | null = null;
-const writeText = () => {
-    if (cursorPosition >= textToWrite.length) {
-        stopKeyboardSound();
-        addLink();
+const showLink = ref(false);
+const isShutdown = ref(false);
+
+const writeTextRecursive = (
+    source: string,
+    ref: Ref<string>,
+    callback?: () => void,
+    cursorPosition = 0,
+) => {
+    if (cursorPosition >= source.length) {
+        callback?.();
         return;
     }
 
-    text.value += textToWrite[cursorPosition];
+    ref.value += source[cursorPosition];
     cursorPosition++;
-    timeoutId = setTimeout(writeText, Math.random() * 100 + 50);
+    setTimeout(
+        () => writeTextRecursive(source, ref, callback, cursorPosition),
+        Math.random() * 100 + 50,
+    );
 };
 
+let timeoutId: number | null = null;
 const handleClick = () => {
-    monitorOn.value = !monitorOn.value;
-    if (monitorOn.value) {
-        timeoutId = setTimeout(() => {
-            playKeyboardSound();
-            writeText();
-        }, 2000);
-    } else {
-        stopKeyboardSound();
-        if (timeoutId !== null) {
-            clearTimeout(timeoutId);
-        }
+    if (monitorOn.value || isShutdown.value) {
+        return;
     }
+
+    monitorOn.value = true;
+
+    emit("buttonClicked");
+    text.value = "";
+    linkText.value = "";
+    timeoutId = setTimeout(() => {
+        playKeyboardSound();
+        writeTextRecursive(textToWrite, text, () => {
+            writeTextRecursive(linkTextToWrite, linkText, () => {
+                stopKeyboardSound();
+                showLink.value = true;
+
+                setTimeout(() => {
+                    stopStaticSound();
+                    playGlitchSound();
+                    isShutdown.value = true;
+                }, 15000);
+            });
+        });
+    }, 2000);
 };
 </script>
 <style scoped>
@@ -200,6 +240,22 @@ const handleClick = () => {
     }
 }
 
+@keyframes shutdown {
+    0% {
+        filter: brightness(1000%);
+        transform: scale3d(1, 1, 1);
+    }
+    20% {
+        transform: scale3d(1, 1.6, 1);
+    }
+    50% {
+        transform: scale3d(1, 0.005, 1);
+    }
+    100% {
+        transform: scale3d(0, 0, 1);
+    }
+}
+
 .monitor[data-on="true"] {
     --button-color: limegreen;
 
@@ -211,6 +267,13 @@ const handleClick = () => {
         opacity: 1;
         transition-delay: 2s;
         z-index: 21;
+    }
+}
+
+.monitor[data-shutdown="true"] {
+    .screen::after,
+    .screen .content {
+        animation: shutdown 1s forwards;
     }
 }
 </style>
