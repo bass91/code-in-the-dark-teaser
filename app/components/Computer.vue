@@ -57,10 +57,6 @@ watch([monitorOn, isStaticSoundPlaying], () => {
     }
 });
 
-const addLink = () => {
-    text.value += `<a class="button" href="https://mpyadigital.confetti.events/codeinthedark-2025-malmo">${linkText}</a>`;
-};
-
 const showLink = ref(false);
 const isShutdown = ref(false);
 
