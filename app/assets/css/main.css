@@ -52,7 +52,7 @@ body {
     display: block;
     padding: 0.25rem;
     font-size: var(--font-size-base);
-    margin-top: 1rem;
+    margin-block: 1rem;
     cursor: pointer;
     text-align: center;
 
