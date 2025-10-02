@@ -3,8 +3,8 @@
         <div class="monitor" :data-on="monitorOn" :data-shutdown="isShutdown">
             <div class="screen">
                 <div class="content">
-                    <span v-html="text"></span
-                    ><span v-show="text !== textToWrite" class="cursor" />
+                    <span v-html="text" />
+                    <span v-show="text !== textToWrite" class="cursor" />
                     <a
                         class="button"
                         :data-show="showLink"
@@ -17,7 +17,13 @@
                     <span v-show="showLink" class="cursor" />
                 </div>
             </div>
-            <button tabindex="-1" @click="handleClick"></button>
+
+            <button
+                @mouseover="buttonHovered = true"
+                @mouseleave="buttonHovered = false"
+                tabindex="-1"
+                @click="handleClick"
+            ></button>
         </div>
     </div>
 </template>
@@ -28,6 +34,8 @@ import { useSound } from "@vueuse/sound";
 const emit = defineEmits<{
     (e: "buttonClicked"): void;
 }>();
+
+const buttonHovered = defineModel<boolean>("buttonHovered");
 
 const monitorOn = ref(false);
 const textToWrite = `CODE IN THE DARK @ Mpya Digital 12/11`;
@@ -134,8 +142,8 @@ const handleClick = () => {
 .monitor {
     button {
         position: absolute;
-        bottom: 3.15rem;
-        right: 3.4rem;
+        bottom: 3.25rem;
+        right: 3.8rem;
         width: 3rem;
         aspect-ratio: 1;
         border-radius: 25%;

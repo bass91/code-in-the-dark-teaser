@@ -1,8 +1,11 @@
 <template>
     <main ref="containerRef" @click="handleClick">
         <Table />
-        <Computer @buttonClicked="buttonClicked = true" />
-        <Overlay :lit="lit" />
+        <Computer
+            v-model:buttonHovered="buttonHovered"
+            @buttonClicked="buttonClicked = true"
+        />
+        <Overlay :lit="lit" :increaseLight="buttonHovered" />
     </main>
     <p class="instructions" :data-hide="buttonClicked">Find the button</p>
     <Analytics />
@@ -13,13 +16,7 @@ import { Analytics } from "@vercel/analytics/nuxt";
 
 const lit = ref(true);
 const buttonClicked = ref(false);
-
-const handleClick = (event: MouseEvent) => {
-    // const target = event.target as HTMLElement | null;
-    // if (target && target.nodeName !== "BUTTON") {
-    //     lit.value = !lit.value;
-    // }
-};
+const buttonHovered = ref(false);
 </script>
 
 <style scoped>
