@@ -5,9 +5,12 @@
         <Overlay :lit="lit" />
     </main>
     <p class="instructions" :data-hide="buttonClicked">Find the button</p>
+    <Analytics />
 </template>
 
 <script setup lang="ts">
+import { Analytics } from "@vercel/analytics/nuxt";
+
 const lit = ref(true);
 const buttonClicked = ref(false);
 
