@@ -55,7 +55,7 @@ const transformY = computed(() => y.value - height.value / 2);
     align-items: center;
     pointer-events: none;
     place-self: center;
-    translate: var(--x) calc(var(--y));
+    translate: var(--x) calc(var(--y) - 60px);
     transition: radial-gradient 0.5s;
 }
 
