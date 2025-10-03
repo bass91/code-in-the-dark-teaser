@@ -9,8 +9,22 @@
                         class="button"
                         :data-show="showLink"
                         href="https://mpyadigital.confetti.events/codeinthedark-2025-malmo"
-                        >{{ linkText
-                        }}<span
+                        ref="buttonRef"
+                    >
+                        <svg
+                            :viewBox="`0 0 ${buttonWidth} ${buttonHeight / 2}`"
+                            class="border"
+                            :style="`--button-border-length: ${buttonBorderLength}`"
+                        >
+                            <rect
+                                x="1"
+                                y="1"
+                                :width="buttonWidth - 2"
+                                :height="buttonHeight / 2 - 2"
+                            />
+                        </svg>
+                        {{ linkText }}
+                        <span
                             v-show="text === textToWrite && !showLink"
                             class="cursor"
                     /></a>
@@ -103,6 +117,7 @@ const handleClick = () => {
         writeTextRecursive(textToWrite, text, () => {
             writeTextRecursive(linkTextToWrite, linkText, () => {
                 stopKeyboardSound();
+                updateButtonDimensions();
                 showLink.value = true;
 
                 setTimeout(() => {
@@ -113,6 +128,19 @@ const handleClick = () => {
             });
         });
     }, 2000);
+};
+
+const buttonWidth = ref(0);
+const buttonHeight = ref(0);
+const buttonBorderLength = computed(() => {
+    return buttonWidth.value * 2 + buttonHeight.value * 2;
+});
+
+const buttonRef = ref<HTMLButtonElement | null>(null);
+const updateButtonDimensions = () => {
+    if (!buttonRef.value) return;
+    buttonWidth.value = buttonRef.value.getBoundingClientRect().width;
+    buttonHeight.value = buttonRef.value.getBoundingClientRect().height;
 };
 </script>
 <style scoped>
@@ -126,7 +154,7 @@ const handleClick = () => {
     position: relative;
 
     @media screen and (max-width: 768px) {
-        height: 55vh;
+        height: 26rem;
     }
 
     &::after {
@@ -159,8 +187,8 @@ const handleClick = () => {
         z-index: 2;
 
         @media screen and (max-width: 768px) {
-            bottom: 4.15rem;
-            right: 4.5rem;
+            bottom: 2.35rem;
+            right: 3rem;
         }
     }
 }
