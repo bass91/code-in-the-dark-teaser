@@ -7,7 +7,7 @@
         />
         <Overlay :lit="lit" :increaseLight="buttonHovered" />
     </main>
-    <p class="instructions" :data-hide="buttonClicked">Click the button</p>
+    <p class="instructions" :data-hide="buttonClicked">Press the button</p>
     <Analytics />
 </template>
 
