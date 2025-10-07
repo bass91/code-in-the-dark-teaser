@@ -142,6 +142,11 @@ const updateButtonDimensions = () => {
     buttonWidth.value = buttonRef.value.getBoundingClientRect().width;
     buttonHeight.value = buttonRef.value.getBoundingClientRect().height;
 };
+
+const { width, height } = useWindowSize();
+watch([width, height], () => {
+    updateButtonDimensions();
+});
 </script>
 <style scoped>
 .computer {
@@ -170,8 +175,8 @@ const updateButtonDimensions = () => {
 .monitor {
     button {
         position: absolute;
-        bottom: 3.25rem;
-        right: 3.8rem;
+        bottom: 9%;
+        right: 11%;
         width: 3rem;
         aspect-ratio: 1;
         border-radius: 25%;
