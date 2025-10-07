@@ -36,10 +36,10 @@ export default defineNuxtConfig({
           content:
             "No map. No labels. Only hush and glow. Find the circle that isn't a moon; press it, and the dark will speak.",
         },
-        { property: "og:image", content: "/og.svg" },
-        { property: "og:image:type", content: "image/svg+xml" },
-        { property: "og:image:width", content: "1200" },
-        { property: "og:image:height", content: "630" },
+        { property: "og:image", content: "/images/og.png" },
+        { property: "og:image:type", content: "image/png" },
+        { property: "og:image:width", content: "1536" },
+        { property: "og:image:height", content: "1024" },
         {
           property: "og:image:alt",
           content: "Neon riddle: What glows yet hides in plain sight?",
@@ -55,7 +55,7 @@ export default defineNuxtConfig({
           content:
             "No map. No labels. Only hush and glow. Find the circle that isn't a moon; press it, and the dark will speak.",
         },
-        { name: "twitter:image", content: "/og.svg" },
+        { name: "twitter:image", content: "/og.png" },
         {
           name: "twitter:image:alt",
           content: "Neon riddle: What glows yet hides in plain sight?",
