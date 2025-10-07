@@ -36,7 +36,7 @@ export default defineNuxtConfig({
           content:
             "No map. No labels. Only hush and glow. Find the circle that isn't a moon; press it, and the dark will speak.",
         },
-        { property: "og:image", content: "/assets/images/og.png" },
+        { property: "og:image", content: "/og.png" },
         { property: "og:image:type", content: "image/png" },
         { property: "og:image:width", content: "1536" },
         { property: "og:image:height", content: "1024" },
